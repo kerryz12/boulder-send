@@ -1,9 +1,9 @@
-import React from 'react';
+import HomePage from "./pages/Homepage.tsx";
 
 function App() {
   return (
     <div>
-      <h1>React + TypeScript + Vite Setup</h1>
+      <HomePage />
     </div>
   );
 }
