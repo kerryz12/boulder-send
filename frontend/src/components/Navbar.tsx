@@ -20,7 +20,6 @@ const Navbar = () => {
               {[
                 { href: "#home", label: "Home" },
                 { href: "#features", label: "Features" },
-                { href: "#pricing", label: "Pricing" },
                 { href: "#testimonials", label: "Community" },
                 { href: "#contact", label: "Contact" },
               ].map((item) => (
@@ -72,7 +71,6 @@ const Navbar = () => {
             {[
               { href: "#home", label: "Home" },
               { href: "#features", label: "Features" },
-              { href: "#pricing", label: "Pricing" },
               { href: "#testimonials", label: "Community" },
               { href: "#contact", label: "Contact" },
             ].map((item) => (

@@ -10,7 +10,7 @@ const CallToAction = () => {
               </h2>
               <p className="mt-4 text-lg text-blue-50/90 max-w-xl mx-auto md:mx-0">
                 Join thousands of climbers tracking their progress and
-                connecting with the vibrant BoulderSend community.
+                connect with the BoulderSend community.
               </p>
             </div>
             <div className="mt-10 md:mt-0 md:ml-8 flex-shrink-0 text-center">
@@ -20,9 +20,6 @@ const CallToAction = () => {
               >
                 Sign Up Free
               </a>
-              <p className="mt-3 text-sm text-blue-100/80">
-                No credit card required. Start today!
-              </p>
             </div>
           </div>
         </div>

@@ -2,7 +2,6 @@ import {
   Navbar,
   HeroSection,
   Features,
-  Pricing,
   Testimonials,
   CallToAction,
   Footer,
