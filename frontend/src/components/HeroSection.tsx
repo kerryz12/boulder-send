@@ -16,7 +16,7 @@ const HeroSection = () => {
       className="pt-16 relative overflow-hidden bg-gradient-to-br from-sky-50 to-blue-100"
     >
       <div className="absolute inset-0 w-full h-full pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-r from-sky-50/90 via-sky-50/80 to-blue-100/50 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-sky-50/90 via-sky-50/80 to-blue-100/30 z-10"></div>
         <div className="absolute right-0 top-0 w-4/5 md:w-3/4 h-full z-0">
           <div
             className="relative w-full h-full bg-cover bg-right bg-no-repeat"
@@ -101,115 +101,6 @@ const HeroSection = () => {
               <span>
                 Join <strong>10,000+</strong> climbers crushing it worldwide!
               </span>
-            </div>
-          </div>
-
-          <div className="lg:w-1/2 flex justify-center lg:justify-end mt-12 lg:mt-0">
-            <div className="relative w-full max-w-md">
-              <div className="absolute -top-6 -right-6 w-12 h-12 rounded-full bg-yellow-400 shadow-lg transform rotate-12 border-4 border-white z-10"></div>
-              <div className="bg-white/80 backdrop-blur-xl rounded-[2rem] border border-slate-300/50 shadow-2xl overflow-hidden transform lg:rotate-1 hover:rotate-0 transition-transform duration-500">
-                <div className="pt-6 px-2 pb-4 sm:pt-8 sm:px-4 sm:pb-6">
-                  <div className="h-2 w-16 bg-slate-400 rounded-full mx-auto mb-2"></div>
-                  <div className="bg-white rounded-2xl overflow-hidden shadow-inner">
-                    <div className="p-4 space-y-3">
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <div className="text-slate-800 font-semibold text-base">
-                            Boulder Crush Gym
-                          </div>
-                          <div className="text-slate-500 text-xs">
-                            Your Progress
-                          </div>
-                        </div>
-                        <div className="h-9 w-9 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow transform rotate-3">
-                          <Map className="h-4 w-4 text-white" />
-                        </div>
-                      </div>
-
-                      {[
-                        {
-                          label: "V3-V4",
-                          percent: 75,
-                          color: "bg-gradient-to-r from-green-400 to-green-500",
-                        },
-                        {
-                          label: "V5-V6",
-                          percent: 45,
-                          color: "bg-gradient-to-r from-blue-400 to-blue-500",
-                        },
-                        {
-                          label: "V7-V8",
-                          percent: 20,
-                          color:
-                            "bg-gradient-to-r from-purple-400 to-purple-500",
-                        },
-                      ].map((item) => (
-                        <div key={item.label}>
-                          <div className="flex justify-between text-xs mb-0.5">
-                            <span className="text-slate-600 font-medium">
-                              {item.label}
-                            </span>
-                            <span className="text-slate-800 font-bold">
-                              {item.percent}%
-                            </span>
-                          </div>
-                          <div className="h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
-                            <div
-                              className={`h-full ${item.color}`}
-                              style={{ width: `${item.percent}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                      ))}
-
-                      <div className="pt-2">
-                        <div className="text-slate-800 font-semibold text-base mb-1.5 flex items-center">
-                          <Trophy className="h-4 w-4 mr-2 text-amber-500" />
-                          Recent Sends
-                        </div>
-                        {[
-                          {
-                            name: "Crimpy Overhang",
-                            grade: "V5",
-                            time: "2d ago",
-                            color: "blue",
-                          },
-                          {
-                            name: "Roof Crusher",
-                            grade: "V4",
-                            time: "5d ago",
-                            color: "green",
-                          },
-                        ].map((item) => (
-                          <div
-                            key={item.name}
-                            className="bg-slate-50 rounded-lg p-2.5 mb-1.5 flex justify-between items-center border border-slate-200/80 hover:shadow-md transition-shadow duration-300 transform hover:-translate-y-0.5"
-                          >
-                            <div>
-                              <div className="text-slate-700 text-sm font-medium">
-                                {item.name}
-                              </div>
-                              <div className="text-slate-500 text-xs">
-                                {item.time}
-                              </div>
-                            </div>
-                            <div
-                              className={`bg-${item.color}-500 text-white text-xs font-bold px-2 py-1 rounded-md shadow transform rotate-1`}
-                            >
-                              {item.grade}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-blue-300 to-rose-300 rounded-full blur-3xl opacity-40 animate-pulse pointer-events-none"></div>
-              <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-gradient-to-br from-sky-300 to-indigo-300 rounded-full blur-3xl opacity-30 animate-pulse pointer-events-none [animation-delay:-2s]"></div>
-
-              <div className="absolute -bottom-4 right-12 w-20 h-20 bg-yellow-300 rounded-full blur-2xl opacity-30 animate-pulse pointer-events-none [animation-delay:-3s]"></div>
             </div>
           </div>
         </div>
