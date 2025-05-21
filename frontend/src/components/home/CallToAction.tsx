@@ -9,13 +9,13 @@ const CallToAction = () => {
                 Ready to Elevate Your Climb?
               </h2>
               <p className="mt-4 text-lg text-blue-50/90 max-w-xl mx-auto md:mx-0">
-                Join thousands of climbers tracking their progress and
-                connect with the BoulderSend community.
+                Join thousands of climbers tracking their progress and connect
+                with the BoulderSend community.
               </p>
             </div>
             <div className="mt-10 md:mt-0 md:ml-8 flex-shrink-0 text-center">
               <a
-                href="#signup"
+                href="signup"
                 className="inline-block w-full sm:w-auto text-center bg-white px-10 py-4 rounded-lg font-semibold text-lg text-blue-600 hover:bg-slate-50 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
               >
                 Sign Up Free

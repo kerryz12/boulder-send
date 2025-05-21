@@ -1,6 +1,10 @@
-export { default as Navbar } from "./Navbar";
-export { default as HeroSection } from "./HeroSection";
-export { default as CallToAction } from "./CallToAction";
-export { default as Features } from "./Features";
-export { default as Footer } from "./Footer";
-export { default as Testimonials } from "./Testimonials";
+export { default as Navbar } from "./home/Navbar";
+export { default as HeroSection } from "./home/HeroSection";
+export { default as CallToAction } from "./home/CallToAction";
+export { default as Features } from "./home/Features";
+export { default as Footer } from "./home/Footer";
+export { default as Testimonials } from "./home/Testimonials";
+export { default as ForgotPassword } from "./login/ForgotPassword";
+export { default as LoginForm } from "./login/LoginForm";
+export { default as LoginHeader } from "./login/LoginHeader";
+export { default as SocialLogin } from "./login/SocialLogin";

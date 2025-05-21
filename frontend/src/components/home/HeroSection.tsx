@@ -7,7 +7,7 @@ import {
   ThumbsUp,
 } from "lucide-react";
 
-import HeroImage from "../assets/hero_photo.jpg";
+import HeroImage from "../../assets/hero_photo.jpg";
 
 const HeroSection = () => {
   return (
@@ -47,13 +47,12 @@ const HeroSection = () => {
               Conquer Your{" "}
               <span className="text-blue-500 relative">
                 Climbs
-                <span className="absolute bottom-1 left-0 w-full h-2 bg-yellow-300 opacity-40 -rotate-1"></span>
               </span>
             </h1>
 
             <p className="mt-6 text-lg md:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0">
               Connect with fellow climbers, celebrate your sends, and discover
-              new routes with BoulderSend — where your climbing community
+              new routes with BoulderSend - where your climbing community
               awaits!
             </p>
 

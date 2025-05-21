@@ -36,7 +36,7 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center space-x-4">
             <a
-              href="#login"
+              href="login"
               className="text-slate-600 hover:text-blue-500 font-medium transition-colors duration-150"
             >
               Login
