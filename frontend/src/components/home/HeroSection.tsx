@@ -1,6 +1,5 @@
 import {
   ChevronRight,
-  Map,
   Users,
   MountainSnow,
   Trophy,
@@ -45,9 +44,7 @@ const HeroSection = () => {
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight">
               Conquer Your{" "}
-              <span className="text-blue-500 relative">
-                Climbs
-              </span>
+              <span className="text-blue-500 relative">Climbs</span>
             </h1>
 
             <p className="mt-6 text-lg md:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0">
@@ -70,7 +67,7 @@ const HeroSection = () => {
 
             <div className="mt-10 flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 items-center justify-center lg:justify-start">
               <a
-                href="#signup"
+                href="signup"
                 className="w-full sm:w-auto bg-blue-500 text-white px-8 py-3.5 rounded-lg font-semibold text-lg hover:bg-blue-600 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 flex items-center justify-center"
               >
                 Start Climbing <ChevronRight className="ml-2 h-5 w-5" />
