@@ -5,34 +5,15 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-sm">
+    <nav className="bg-white/90 backdrop-blur-md sticky top-0 left-0 right-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <a href="#home" className="flex items-center space-x-2 flex-shrink-0">
+          <a href="/" className="flex items-center space-x-2 flex-shrink-0">
             <MountainSnow className="h-8 w-8 text-blue-500" />
             <span className="font-bold text-2xl text-slate-800">
               <span className="text-blue-500">Boulder</span>Send
             </span>
           </a>
-
-          <div className="hidden md:block ml-10">
-            <div className="flex items-baseline space-x-4">
-              {[
-                { href: "#home", label: "Home" },
-                { href: "#features", label: "Features" },
-                { href: "#testimonials", label: "Community" },
-                { href: "#contact", label: "Contact" },
-              ].map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-slate-600 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </div>
 
           <div className="hidden md:flex items-center space-x-4">
             <a
@@ -67,23 +48,6 @@ const Navbar = () => {
 
       {isMenuOpen && (
         <div className="md:hidden bg-white/95 backdrop-blur-md shadow-lg border-t border-slate-200">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {[
-              { href: "#home", label: "Home" },
-              { href: "#features", label: "Features" },
-              { href: "#testimonials", label: "Community" },
-              { href: "#contact", label: "Contact" },
-            ].map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="text-slate-700 hover:bg-blue-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-150"
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
           <div className="pt-4 pb-3 border-t border-slate-200">
             <div className="flex items-center px-5 mb-3">
               <div className="flex-shrink-0">
@@ -102,14 +66,14 @@ const Navbar = () => {
             </div>
             <div className="mt-3 px-2 space-y-2">
               <a
-                href="#login"
+                href="login"
                 onClick={() => setIsMenuOpen(false)}
                 className="block w-full text-center px-3 py-2 rounded-md text-base font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 hover:text-blue-500 transition-colors duration-150"
               >
                 Login
               </a>
               <a
-                href="#signup"
+                href="signup"
                 onClick={() => setIsMenuOpen(false)}
                 className="block w-full text-center px-3 py-2 rounded-md text-base font-medium bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-150"
               >
