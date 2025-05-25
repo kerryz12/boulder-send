@@ -1,65 +1,98 @@
-import { Calendar } from "lucide-react";
-import type { RecentClimb } from "../../types/ProfilePage.types";
+import React from "react";
+import { Climb } from "../../types";
+import Card from "../common/Card";
+import Button from "../common/Button";
+import {
+  CheckCircle,
+  XCircle,
+  MapPin,
+  CalendarDays,
+  ExternalLink,
+} from "lucide-react";
 
-const RecentClimbs: React.FC<{ climbs: RecentClimb[] }> = ({ climbs }) => {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-  };
+interface RecentClimbsProps {
+  climbs: Climb[];
+}
 
-  return (
-    <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-      <div className="flex items-center gap-2 mb-6">
-        <Calendar className="h-5 w-5 text-blue-500" />
-        <h3 className="text-xl font-semibold text-slate-800">Recent Climbs</h3>
+const ClimbCard: React.FC<{ climb: Climb }> = ({ climb }) => (
+  <div className="p-4 border border-slate-200 rounded-lg bg-white hover:border-slate-300 transition-colors">
+    <div className="flex justify-between items-start mb-2">
+      <div>
+        <h3 className="font-semibold text-slate-800 text-lg">
+          {climb.name || `${climb.type} - ${climb.grade}`}
+        </h3>
+        {climb.name && (
+          <p className="text-sm text-slate-500">{`${climb.type} - ${climb.grade}`}</p>
+        )}
       </div>
-      <div className="space-y-3">
-        {climbs.map((climb) => (
-          <div
-            key={climb.id}
-            className="bg-white border border-slate-200/60 rounded-lg p-4 hover:shadow-md transition-all duration-200"
-          >
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-3">
-                <div
-                  className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-white ${
-                    climb.completed ? "bg-green-500" : "bg-orange-500"
-                  }`}
-                >
-                  {climb.grade}
-                </div>
-                <div>
-                  <h4 className="font-medium text-slate-800">{climb.name}</h4>
-                  <p className="text-sm text-slate-500">{climb.location}</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="text-sm font-medium text-slate-700">
-                  {formatDate(climb.date)}
-                </p>
-                <p className="text-xs text-slate-500">
-                  {climb.attempts} attempt{climb.attempts !== 1 ? "s" : ""}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div
-                className={`w-2 h-2 rounded-full ${
-                  climb.completed ? "bg-green-500" : "bg-orange-500"
-                }`}
-              ></div>
-              <span
-                className={`text-xs font-medium ${
-                  climb.completed ? "text-green-700" : "text-orange-700"
-                }`}
-              >
-                {climb.completed ? "Completed" : "In Progress"}
-              </span>
-            </div>
-          </div>
-        ))}
+      <span
+        className={`flex items-center px-2.5 py-1 text-xs font-medium rounded-full ${
+          climb.sent
+            ? "bg-green-100 text-green-700"
+            : "bg-amber-100 text-amber-700"
+        }`}
+      >
+        {climb.sent ? (
+          <CheckCircle size={14} className="mr-1" />
+        ) : (
+          <XCircle size={14} className="mr-1" />
+        )}
+        {climb.sent ? "Sent" : "Attempted"}
+      </span>
+    </div>
+
+    <div className="space-y-1 text-sm text-slate-600">
+      {climb.location && (
+        <div className="flex items-center">
+          <MapPin size={14} className="mr-1.5 text-slate-400" />{" "}
+          {climb.location}
+        </div>
+      )}
+      <div className="flex items-center">
+        <CalendarDays size={14} className="mr-1.5 text-slate-400" />{" "}
+        {new Date(climb.date).toLocaleDateString()}
       </div>
     </div>
+
+    {climb.notes && (
+      <p className="text-sm text-slate-500 mt-3 italic bg-slate-50 p-2 rounded">
+        "{climb.notes}"
+      </p>
+    )}
+  </div>
+);
+
+const RecentClimbs: React.FC<RecentClimbsProps> = ({ climbs }) => {
+  if (!climbs || climbs.length === 0) {
+    return (
+      <Card title="Recent Climbs">
+        <p className="text-slate-500">
+          No recent climbs logged yet. Go send something! 🧗‍♀️
+        </p>
+        <Button variant="secondary" className="mt-4">
+          Log a New Climb
+        </Button>
+      </Card>
+    );
+  }
+  return (
+    <Card
+      title="Recent Climbs"
+      titleClassName="text-2xl font-bold text-slate-800 mb-6"
+    >
+      <div className="space-y-4">
+        {climbs.slice(0, 3).map((climb) => (
+          <ClimbCard key={climb.id} climb={climb} />
+        ))}
+      </div>
+      {climbs.length > 3 && (
+        <div className="mt-6 text-center">
+          <Button variant="ghost" rightIcon={<ExternalLink size={16} />}>
+            View All Climbs
+          </Button>
+        </div>
+      )}
+    </Card>
   );
 };
 

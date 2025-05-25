@@ -1,35 +1,62 @@
-import type { ClimbGrade } from "../../types/ProfilePage.types";
+import React from "react";
+import type { GradeDistributionType } from "../../types";
+import { Card } from "..";
 
-const GradeDistribution: React.FC<{ grades: ClimbGrade[] }> = ({ grades }) => {
-  const maxCount = Math.max(...grades.map((g) => g.count));
+// import { Bar } from 'react-chartjs-2'; // Example with Chart.js
+// import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+
+// ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+interface GradeDistributionProps {
+  distribution: GradeDistributionType;
+}
+
+const GradeDistribution: React.FC<GradeDistributionProps> = ({
+  distribution,
+}) => {
+  const hasData = Object.keys(distribution).length > 0;
+
+  // const chartData = {
+  //   labels: Object.keys(distribution).sort(), // Sort grades for consistent order
+  //   datasets: [
+  //     {
+  //       label: 'Climbs per Grade',
+  //       data: Object.keys(distribution).sort().map(grade => distribution[grade]),
+  //       backgroundColor: 'rgba(59, 130, 246, 0.5)', // blue-500 with opacity
+  //       borderColor: 'rgba(59, 130, 246, 1)',     // blue-500
+  //       borderRadius: 4,
+  //       borderWidth: 1,
+  //     },
+  //   ],
+  // };
+  // const options = {
+  //   responsive: true,
+  //   maintainAspectRatio: false,
+  //   plugins: { legend: { display: false } },
+  //   scales: { y: { beginAtZero: true, grid: { color: '#e5e7eb' } }, x: { grid: { display: false } } }
+  // };
 
   return (
-    <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 mb-8">
-      <h3 className="text-xl font-semibold text-slate-800 mb-6">
-        Grade Distribution
-      </h3>
-      <div className="space-y-4">
-        {grades.map((grade) => (
-          <div key={grade.grade} className="flex items-center gap-4">
-            <div className="w-8 text-sm font-medium text-slate-700">
-              {grade.grade}
-            </div>
-            <div className="flex-1 bg-slate-200 rounded-full h-6 relative overflow-hidden">
-              <div
-                className={`h-full ${grade.color} rounded-full transition-all duration-500 ease-out flex items-center justify-end pr-2`}
-                style={{ width: `${(grade.count / maxCount) * 100}%` }}
-              >
-                {grade.count > 0 && (
-                  <span className="text-xs font-medium text-white">
-                    {grade.count}
-                  </span>
-                )}
-              </div>
-            </div>
+    <Card
+      title="Grade Distribution"
+      titleClassName="text-2xl font-bold text-slate-800 mb-6"
+    >
+      {hasData ? (
+        <div className="h-64 md:h-80 p-1 bg-white border border-slate-200 rounded-lg">
+          {/* Placeholder for chart */}
+          {/* <Bar options={options} data={chartData} /> */}
+          <div className="flex items-center justify-center h-full">
+            <p className="text-slate-500 text-center p-4">
+              Chart will be displayed here. <br />
+            </p>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      ) : (
+        <p className="text-slate-500">
+          Not enough climb data to display distribution.
+        </p>
+      )}
+    </Card>
   );
 };
 

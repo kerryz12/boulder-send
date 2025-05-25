@@ -1,152 +1,195 @@
 import React, { useState, useEffect } from "react";
 
-import type {
-  RecentClimb,
-  ClimbGrade,
-  ClimbingStats,
-} from "../types/ProfilePage.types";
-
 import {
-  AddClimbButton,
-  GradeDistribution,
+  UserProfile,
+  StatsSummary,
   RecentClimbs,
-  StatsOverview,
-  Navbar,
+  Achievements,
+  Goals,
+  GradeDistribution,
+  PageWrapper,
 } from "../components";
 
-// Mock data - replace with API calls
-const mockGradeData: ClimbGrade[] = [
-  { grade: "V0", count: 15, color: "bg-green-400" },
-  { grade: "V1", count: 12, color: "bg-green-500" },
-  { grade: "V2", count: 8, color: "bg-yellow-400" },
-  { grade: "V3", count: 6, color: "bg-yellow-500" },
-  { grade: "V4", count: 4, color: "bg-orange-400" },
-  { grade: "V5", count: 2, color: "bg-orange-500" },
-  { grade: "V6", count: 1, color: "bg-red-400" },
-];
+import {
+  User,
+  Climb,
+  Achievement,
+  Goal,
+  GradeDistributionType,
+  ClimbType,
+  GoalStatus,
+} from "../types";
 
-const mockRecentClimbs: RecentClimb[] = [
+// Mock Data - Replace with actual API calls
+const mockUser: User = {
+  id: "kerry",
+  fullName: "Kerry Zhang",
+  username: "kerry",
+  profilePictureUrl: "https://via.placeholder.com/150/0EA5E9/FFFFFF?Text=AH",
+  bio: "Aspiring boulderer",
+  followersCount: 1050,
+  followingCount: 88,
+  totalClimbs: 156,
+  highestGradeClimbed: "V3",
+  averageGrade: "V3",
+  sessionsLogged: 78,
+};
+
+const mockRecentClimbs: Climb[] = [
   {
-    id: "1",
-    name: "Crimpy Traverse",
-    grade: "V4",
-    location: "The Spot Gym",
-    date: "2024-05-23",
-    attempts: 3,
-    completed: true,
+    id: "climb1",
+    name: "Midnight Lightning",
+    grade: "V8",
+    type: ClimbType.BOULDER,
+    location: "Camp 4, Yosemite",
+    date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    sent: true,
+    notes: "Felt strong today!",
   },
   {
-    id: "2",
-    name: "Overhang Monster",
-    grade: "V5",
-    location: "Movement Climbing",
-    date: "2024-05-22",
-    attempts: 7,
-    completed: false,
+    id: "climb2",
+    grade: "V6",
+    type: ClimbType.BOULDER,
+    location: "The Buttermilks",
+    date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+    sent: true,
   },
   {
-    id: "3",
-    name: "Slab Master",
-    grade: "V3",
-    location: "Earth Treks",
-    date: "2024-05-21",
-    attempts: 2,
-    completed: true,
-  },
-  {
-    id: "4",
-    name: "Pinch Problem",
-    grade: "V4",
-    location: "The Spot Gym",
-    date: "2024-05-20",
+    id: "climb3",
+    name: "Crimpin' Ain't Easy",
+    grade: "V7",
+    type: ClimbType.BOULDER,
+    location: "Local Gym",
+    date: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+    sent: false,
     attempts: 5,
-    completed: true,
   },
 ];
 
-const mockStats: ClimbingStats = {
-  totalClimbs: 48,
-  uniqueRoutes: 35,
-  favoriteGrade: "V2",
-  longestSession: "3h 45m",
+const mockAchievements: Achievement[] = [
+  {
+    id: "ach1",
+    title: "First V5!",
+    description: "Sent your first V5 graded boulder.",
+    dateUnlocked: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+    icon: "🎉",
+  },
+  {
+    id: "ach2",
+    title: "Century Climber",
+    description: "Logged 100 climbs.",
+    dateUnlocked: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
+    icon: "💯",
+  },
+  {
+    id: "ach3",
+    title: "Onsight King",
+    description: "Onsighted a V4.",
+    dateUnlocked: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+    icon: "👑",
+  },
+];
+
+const mockGoals: Goal[] = [
+  {
+    id: "goal1",
+    title: "Send a V9",
+    description: 'Projecting "The Orb" at the local crag.',
+    targetGrade: "V9",
+    status: GoalStatus.IN_PROGRESS,
+    targetDate: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  { id: "goal2", title: "Climb Outdoors 5 Times", status: GoalStatus.PENDING },
+];
+
+const mockGradeDistribution: GradeDistributionType = {
+  V0: 5,
+  V1: 12,
+  V2: 25,
+  V3: 30,
+  V4: 28,
+  V5: 20,
+  V6: 15,
+  V7: 10,
+  V8: 7,
+  V9: 3,
+  V10: 1,
 };
 
 const ProfilePage: React.FC = () => {
-  const [gradeData, setGradeData] = useState<ClimbGrade[]>([]);
-  const [recentClimbs, setRecentClimbs] = useState<RecentClimb[]>([]);
-  const [stats, setStats] = useState<ClimbingStats | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [recentClimbs, setRecentClimbs] = useState<Climb[]>([]);
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [goals, setGoals] = useState<Goal[]>([]);
+  const [gradeDistribution, setGradeDistribution] =
+    useState<GradeDistributionType>({});
+  const [loading, setLoading] = useState<boolean>(true);
 
-  // Simulate API calls
   useEffect(() => {
+    // Simulate API call
     const fetchData = async () => {
       setLoading(true);
-      // Simulate network delay
+      // Simulate delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      setGradeData(mockGradeData);
+      setUser(mockUser);
       setRecentClimbs(mockRecentClimbs);
-      setStats(mockStats);
+      setAchievements(mockAchievements);
+      setGoals(mockGoals);
+      setGradeDistribution(mockGradeDistribution);
       setLoading(false);
     };
-
     fetchData();
   }, []);
 
-  const handleAddClimb = () => {
-    alert("Add climb functionality would be implemented here!");
-  };
-
-  if (loading) {
+  if (loading || !user) {
     return (
-      <div className="min-h-screen bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="animate-pulse">
-            <div className="h-8 bg-slate-200 rounded w-1/4 mb-8"></div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="h-24 bg-slate-200 rounded-xl"></div>
-              ))}
-            </div>
-            <div className="h-64 bg-slate-200 rounded-xl mb-8"></div>
-            <div className="h-96 bg-slate-200 rounded-xl"></div>
-          </div>
+      <PageWrapper>
+        <div className="flex justify-center items-center h-screen">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-sky-blue"></div>
+          <p className="ml-4 text-sky-blue-dark text-xl">Loading Profile...</p>
         </div>
-      </div>
+      </PageWrapper>
     );
   }
 
+  const {
+    fullName,
+    username,
+    profilePictureUrl,
+    bio,
+    followersCount,
+    followingCount,
+    ...userStats
+  } = user;
+  const userProfileData = {
+    fullName,
+    username,
+    profilePictureUrl,
+    bio,
+    followersCount,
+    followingCount,
+    id: user.id,
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-2">
-              Welcome back, Kerry!
-            </h1>
-            <p className="text-lg text-slate-600">
-              Track your progress and celebrate your achievements.
-            </p>
-          </div>
-          <div className="mt-4 sm:mt-0">
-            <AddClimbButton onClick={handleAddClimb} />
-          </div>
-        </div>
+    <PageWrapper>
+      <div className="space-y-6">
+        <UserProfile user={userProfileData} />
 
-        {stats && <StatsOverview stats={stats} />}
+        <StatsSummary stats={userStats} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <GradeDistribution grades={gradeData} />
-          </div>
-
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-6">
             <RecentClimbs climbs={recentClimbs} />
+            <GradeDistribution distribution={gradeDistribution} />
+          </div>
+          <div className="space-y-6">
+            <Achievements achievements={achievements} />
+            <Goals goals={goals} />
           </div>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 
