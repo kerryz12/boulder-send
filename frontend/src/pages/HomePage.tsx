@@ -15,7 +15,6 @@ export default function HomePage() {
       <Features />
       <Testimonials />
       <CallToAction />
-      <Footer />
     </div>
   );
 }

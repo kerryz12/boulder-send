@@ -17,6 +17,6 @@ export interface Climb {
   imageUrl?: string;
 }
 
-export interface GradeDistribution {
+export interface GradeDistributionType {
   [grade: string]: number;
 }
